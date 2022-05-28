@@ -1,11 +1,11 @@
+import debugDefaultRule from '../shared/logs';
+
 function uprightAnalyzer(previousReversePosition: string,
                          concurrentReversePositition: string,
                          uprightCount: number): number {
     if (previousReversePosition === concurrentReversePositition) {
         uprightCount++;
-        if (uprightCount === 4) {
-            console.log('Es mutante en uprightCount', concurrentReversePositition, uprightCount);
-        }
+        debugDefaultRule(uprightCount, concurrentReversePositition, 'oblique');
     } else {
         uprightCount = 1;
     }

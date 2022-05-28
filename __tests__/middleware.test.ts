@@ -1,9 +1,6 @@
 import dnaValidated, { isNotEmpty, isMinimumAllowedLimit, isMinimumAllowedLimitOutside, isLimitExceeded, arrayToMatrix } from '../src/application/middleware';
 
-const DNA_MOCK = [
-    ['A', 'T', 'G', 'C', 'G', 'A'],
-    ['C', 'A', 'G', 'T', 'G', 'C']
-];
+const DNA_MOCK = ['ATGCGA', 'CAGTGC', 'TTATGT'];
 
 const DNA_MOCK2 = [
     ['A', 'T', 'G', 'C', 'G', 'A'],

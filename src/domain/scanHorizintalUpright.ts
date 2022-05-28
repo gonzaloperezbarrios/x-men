@@ -22,14 +22,14 @@ function scanHorizintalUpright(dna: string[][]): boolean {
             horizontalCount = horizontalAnalyzer(concurrentPositition, nextPositition, horizontalCount);
             if (ruleDefaultMutant(horizontalCount)) {
                 isRuleDefaultMutant = true;
-                // break;
+                break;
             }
             // uprightCount
             if (i > 0) {
                 uprightCount = uprightAnalyzer(concurrentReversePositition, previousReversePosition, uprightCount);
                 if (ruleDefaultMutant(uprightCount)) {
                     isRuleDefaultMutant = true;
-                    // break;
+                    break;
                 }
             }
             previousReversePosition = dna[j][i];

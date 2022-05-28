@@ -1,4 +1,5 @@
 import ruleDefaultMutant from './ruleDefaultMutant';
+import debugDefaultRule from '../shared/logs';
 
 function scanOblique(dna: string[][]): boolean {
     let obliqueCount = 1;
@@ -16,10 +17,8 @@ function scanOblique(dna: string[][]): boolean {
                 obliqueCount++;
                 if (ruleDefaultMutant(obliqueCount)) {
                     isRuleDefaultMutant = true;
-                    // break;
-                }
-                if (obliqueCount === 4) {
-                    console.log('Es mutante en diagonal ', dna[uprightCount][horizontalCount], obliqueCount);
+                    debugDefaultRule(obliqueCount, dna[uprightCount][horizontalCount], 'oblique');
+                    break;
                 }
             } else {
                 obliqueCount = 1;

@@ -2,8 +2,8 @@ export const isNotEmpty = (item: string): boolean => item.toString() !== '';
 
 export const isMinimumAllowedLimit = (item: string): boolean => item.length > 3;
 
-export const isMinimumAllowedLimitOutside = (item: any[]): void => {
-    if (item.length < 3) {
+export const isMinimumAllowedLimitOutside = (item: string[]): void => {
+    if (item.length < 5) {
         throw new Error('Base nitrogenada debe ser un arreglo cuadrado minimo de 4');
     }
 };
@@ -15,9 +15,9 @@ export const isInvalidCharacter = (item: string): boolean => {
     return !r.test(item);
 };
 
-export const arrayToMatrix = (matrix: any[]): string[][] => matrix.map(function (item) { return item.split(''); });
+export const arrayToMatrix = (matrix: string[]): string[][] => matrix.map(function (item) { return item.split(''); });
 
-const dnaValidated = (dna: any[], lengthMax: number) => dna.map(item => {
+const dnaValidated = (dna: string[], lengthMax: number) => dna.map(item => {
     if (!isNotEmpty(item)) {
         throw new Error('Base nitrogenada vacía');
     }
