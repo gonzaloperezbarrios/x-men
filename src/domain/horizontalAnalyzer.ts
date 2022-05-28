@@ -4,6 +4,8 @@ function horizontalAnalyzer(concurrentPositition: string, nextPositition: string
     if (concurrentPositition === nextPositition) {
         horizontalCount++;
         debugDefaultRule(horizontalCount, concurrentPositition, 'horizonatl');
+    } else {
+        horizontalCount = 1;
     }
     return horizontalCount;
 }
