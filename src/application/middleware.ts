@@ -25,10 +25,10 @@ const dnaValidated = (dna: any[], lengthMax: number) => dna.map(item => {
         throw new Error('Base nitrogenada debe tener un mínimo de 4 letras');
     }
     if (!isLimitExceeded(item, lengthMax)) {
-        throw new Error(`Base nitrogenada debe ser un arreglo cuadrado: ${item}`);
+        throw new Error(`Base nitrogenada debe ser un arreglo cuadrado nxn: ${item}`);
     }
     if (!isInvalidCharacter(item)) {
-        throw new Error(`Base nitrogenada tiene un carácter invalido : ${item}`);
+        throw new Error(`Base nitrogenada tiene un carácter invalido: ${item}`);
     }
     return item.toString().toUpperCase();
 });

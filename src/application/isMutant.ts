@@ -6,9 +6,8 @@ function isMutant(dna: string[][]): boolean {
     if (isScan) {
         console.log('Es totalmente mutante');
         return true;
-    } else {
-        console.log('Es humano');
     }
+    console.log('Es humano');
     return false;
 }
 
