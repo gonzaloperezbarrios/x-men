@@ -3,7 +3,7 @@ export const isNotEmpty = (item: string): boolean => item.toString() !== '';
 export const isMinimumAllowedLimit = (item: string): boolean => item.length > 3;
 
 export const isMinimumAllowedLimitOutside = (item: string[]): void => {
-    if (item.length < 5) {
+    if (item.length < 4) {
         throw new Error('Base nitrogenada debe ser un arreglo cuadrado minimo de 4');
     }
 };

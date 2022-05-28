@@ -1,6 +1,7 @@
 import dnaValidated, { isNotEmpty, isMinimumAllowedLimit, isMinimumAllowedLimitOutside, isLimitExceeded, arrayToMatrix } from '../src/application/middleware';
 
-const DNA_MOCK = ['ATGCGA', 'CAGTGC', 'TTATGT'];
+const DNA_MOCK_ERROR = [ "GTC", "GCT", "CTA"];
+const DNA_MOCK_OK = [ "GTCA", "GCTT", "CTAT", "CGCG" ];
 
 const DNA_MOCK2 = [
     ['A', 'T', 'G', 'C', 'G', 'A'],
@@ -22,7 +23,11 @@ test('isMinimumAllowedLimit: evaluate the minimum permissible limit value', () =
 });
 
 test('isMinimumAllowedLimitOutside: evaluate in the matrix the minimum allowed limit', () => {
-    expect(() => isMinimumAllowedLimitOutside(DNA_MOCK)).toThrow('Base nitrogenada debe ser un arreglo cuadrado minimo de 4');
+    expect(() => isMinimumAllowedLimitOutside(DNA_MOCK_ERROR)).toThrow('Base nitrogenada debe ser un arreglo cuadrado minimo de 4');
+});
+
+test('isMinimumAllowedLimitOutside: evaluate in the array the minimum allowable limit and it does not fail', () => {
+    expect(isMinimumAllowedLimitOutside(DNA_MOCK_OK)).toBe(void 0);
 });
 
 test('isLimitExceeded: evaluate the maximum allowed limit value', () => {
