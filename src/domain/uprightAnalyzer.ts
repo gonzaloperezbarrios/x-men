@@ -5,7 +5,7 @@ function uprightAnalyzer(previousReversePosition: string,
                          uprightCount: number): number {
     if (previousReversePosition === concurrentReversePositition) {
         uprightCount++;
-        debugDefaultRule(uprightCount, concurrentReversePositition, 'oblique');
+        debugDefaultRule(uprightCount, concurrentReversePositition, 'vertical');
     } else {
         uprightCount = 1;
     }
