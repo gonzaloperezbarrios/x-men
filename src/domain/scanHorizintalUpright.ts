@@ -25,7 +25,7 @@ function scanHorizintalUpright(dna: string[][]): boolean {
                 break;
             }
             // uprightCount
-            if (i > 0) {
+            if (previousReversePosition !== null) {
                 uprightCount = uprightAnalyzer(concurrentReversePositition, previousReversePosition, uprightCount);
                 if (ruleDefaultMutant(uprightCount)) {
                     isRuleDefaultMutant = true;
