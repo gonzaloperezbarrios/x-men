@@ -1,0 +1,15 @@
+import scanOblique from '../src/domain/scanOblique';
+
+const DNA_MOCK = [
+    ["A", "T", "G", "C", "G", "A"],
+    ["C", "A", "G", "T", "G", "C"],
+    ["T", "T", "A", "T", "G", "T"],
+    ["A", "G", "A", "A", "G", "G"],
+    ["C", "C", "C", "C", "T", "A"],
+    ["T", "C", "A", "C", "T", "G"]
+];
+
+test('scanOblique: finds a match in a skew nxn array that has at least 4 values in a row', () => {
+    expect(scanOblique(DNA_MOCK)).toBe(true);
+});
+
