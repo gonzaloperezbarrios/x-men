@@ -1,6 +1,7 @@
 import type { AWS } from '@serverless/typescript';
 
 import hello from '@functions/hello';
+import mutant from '@functions/mutant';
 
 const serverlessConfiguration: AWS = {
   service: 'dna-mutante-x',
@@ -19,7 +20,7 @@ const serverlessConfiguration: AWS = {
     },
   },
   // import the function via paths
-  functions: { hello },
+  functions: { hello, mutant },
   package: { individually: true },
   custom: {
     esbuild: {

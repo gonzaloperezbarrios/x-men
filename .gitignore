@@ -40,3 +40,6 @@ admin.env
 .env
 _meta
 .serverless
+.esbuild
+.vscode/settings.json
+.vscode/extensions.json
