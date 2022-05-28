@@ -1,4 +1,4 @@
-import debugDefaultRule from '../shared/logs';
+import debugDefaultRule from '../libs/logs';
 
 function horizontalAnalyzer(concurrentPositition: string, nextPositition: string, horizontalCount: number): number {
     if (concurrentPositition === nextPositition) {

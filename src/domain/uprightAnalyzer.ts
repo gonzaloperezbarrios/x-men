@@ -1,4 +1,4 @@
-import debugDefaultRule from '../shared/logs';
+import debugDefaultRule from '../libs/logs';
 
 function uprightAnalyzer(previousReversePosition: string,
                          concurrentReversePositition: string,

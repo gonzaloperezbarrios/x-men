@@ -1,5 +1,5 @@
 import ruleDefaultMutant from './ruleDefaultMutant';
-import debugDefaultRule from '../shared/logs';
+import debugDefaultRule from '../libs/logs';
 
 function scanOblique(dna: string[][]): boolean {
     let obliqueCount = 1;
