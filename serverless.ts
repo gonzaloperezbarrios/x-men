@@ -1,6 +1,5 @@
 import type { AWS } from '@serverless/typescript';
 
-import hello from '@functions/hello';
 import mutant from '@functions/mutant';
 
 const serverlessConfiguration: AWS = {
@@ -20,7 +19,7 @@ const serverlessConfiguration: AWS = {
     },
   },
   // import the function via paths
-  functions: { hello, mutant },
+  functions: { mutant },
   package: { individually: true },
   custom: {
     esbuild: {
