@@ -4,6 +4,7 @@ import { OKResponse, ForbiddenResponse } from '@libs/api-gateway';
 import { middyfy } from '@libs/lambda';
 import schema from './schema';
 import isMutant from '../../application/isMutant';
+import { debugWarning } from '@libs/logs';
 
 const mutant: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (event) => {
   try {
@@ -19,8 +20,9 @@ const mutant: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (event) 
       message: _message
     });
   } catch (error) {
+    debugWarning((error as string));
     return ForbiddenResponse({
-      message: `ERROR ${error}`
+      message: `${error}`
     });
   }
 };
