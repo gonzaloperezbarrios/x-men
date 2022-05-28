@@ -1,5 +1,5 @@
-import scanHorizintalUpright from 'src/domain/scanHorizintalUpright';
-import scanOblique from 'src/domain/scanOblique';
+import scanHorizintalUpright from '../domain/scanHorizintalUpright';
+import scanOblique from '../domain/scanOblique';
 
 function isMutant(dna: string[][]): boolean {
     const isScan = scanHorizintalUpright(dna) || scanOblique(dna);
