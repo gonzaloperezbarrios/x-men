@@ -3,23 +3,31 @@ import type { ValidatedEventAPIGatewayProxyEvent } from '@libs/api-gateway';
 import { formatJSONResponse } from '@libs/api-gateway';
 import { middyfy } from '@libs/lambda';
 import schema from './schema';
-import isMutant, { jsonToMatrix } from '../../application/isMutant';
+import isMutant from '../../application/isMutant';
+import dnaValidated, { isMinimumAllowedLimitOutside, arrayToMatrix } from '../../application/middleware';
 
-// tslint:disable-next-line: arrow-return-shorthand
 const mutant: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (event) => {
-  const { dna } = event.body;
-  const _dna = jsonToMatrix(dna);
-  let _message = 'Es mutante';
-  if (!isMutant(_dna)) {
-    _message = 'Es humano';
+  try {
+    const { dna } = event.body;
+    let _message = 'Es mutante';
+    isMinimumAllowedLimitOutside(dna);
+    const _dna = arrayToMatrix(dnaValidated(dna, dna.length));
+    if (!isMutant(_dna)) {
+      _message = 'Es humano';
+      return formatJSONResponse({
+        statusCode: 403,
+        message: _message
+      });
+    }
     return formatJSONResponse({
-      statusCode: 403,
       message: _message
     });
+  } catch (error) {
+    return formatJSONResponse({
+      statusCode: 403,
+      message: `ERROR ${error}`
+    });
   }
-  return formatJSONResponse({
-    message: _message
-  });
 };
 
 export const main = middyfy(mutant);
