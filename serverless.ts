@@ -5,7 +5,7 @@ import mutant from '@functions/mutant';
 const serverlessConfiguration: AWS = {
   service: 'dna-mutante-x',
   frameworkVersion: '3',
-  plugins: ['serverless-esbuild'],
+  plugins: ['serverless-esbuild', 'serverless-offline'],
   provider: {
     name: 'aws',
     runtime: 'nodejs14.x',
