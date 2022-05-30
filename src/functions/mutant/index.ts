@@ -17,3 +17,15 @@ export default {
     },
   ],
 };
+
+export const stats = {
+  handler: `${handlerPath(__dirname)}/handler.getAll`,
+  events: [
+      {
+          http: {
+              method: 'get',
+              path: 'stats/',
+          },
+      },
+  ],
+};

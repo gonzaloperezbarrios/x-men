@@ -119,7 +119,8 @@
   "linterOptions": {
     "exclude": [
       "__tests__/*.d.ts",
-      "src/functions*.d.ts"
+      "src/functions*.d.ts",
+      "serverless.ts"
     ]
   }
 }

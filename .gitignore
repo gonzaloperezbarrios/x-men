@@ -43,3 +43,4 @@ _meta
 .esbuild
 .vscode/settings.json
 .vscode/extensions.json
+.dynamodb

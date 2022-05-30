@@ -1,1 +1,1 @@
-export { default as mutant } from './mutant';
+export { default as mutant, stats } from './mutant';

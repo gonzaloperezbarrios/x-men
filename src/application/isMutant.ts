@@ -1,15 +1,17 @@
 import scanHorizintalUpright from '../domain/scanHorizintalUpright';
 import scanOblique from '../domain/scanOblique';
 import dnaValidated, { arrayToMatrix, isMinimumAllowedLimitOutside } from './middleware';
+import { createAdn } from './persistence';
 
 function isMutant(dna: string[]): boolean {
     isMinimumAllowedLimitOutside(dna);
-    const _dna = arrayToMatrix(dnaValidated(dna, dna.length));
-    const isScan = scanHorizintalUpright(_dna) || scanOblique(_dna);
-    if (isScan) {
-        return true;
-    }
-    return false;
+    const _dnaMatrix = arrayToMatrix(dnaValidated(dna, dna.length));
+    const isScan = scanHorizintalUpright(_dnaMatrix) || scanOblique(_dnaMatrix);
+    createAdn({
+        adn: dna,
+        isMutant: isScan,
+    });
+    return isScan;
 }
 
 export default isMutant;
