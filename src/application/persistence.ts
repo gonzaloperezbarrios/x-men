@@ -1,19 +1,18 @@
 import AdnModel from '../infrastructure/model/adn';
 import adnService from '../infrastructure/services';
-import { debugInfo, debugError } from '../libs/logs';
 import { sha224 } from 'js-sha256';
 
-export const createAdn = (adnData: AdnModel): void => {
+export const createAdn = async (adnData: AdnModel) => {
     const { adn, isMutant } = adnData;
     const _adnSha = sha224(adn.toString());
-    adnService.create({
+    const response = await adnService.create({
         adnId: _adnSha,
         adn: adn,
         isMutant: isMutant,
         status: true,
         createdAt: new Date().toISOString()
-    }).then(result => debugInfo(`Insert ADN: ${result}`))
-        .catch(error => debugError(`Insert-Error ADN: ${error}`));
+    });
+    return response;
 };
 
 export const responseAllAdn = (allAdn: AdnModel[], countMutantDna = 0, countHumanDna = 0, ratio = 0) => allAdn.reduce((_accumulator, item) => {

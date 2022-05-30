@@ -3,15 +3,15 @@ import scanOblique from '../domain/scanOblique';
 import dnaValidated, { arrayToMatrix, isMinimumAllowedLimitOutside } from './middleware';
 import { createAdn } from './persistence';
 
-function isMutant(dna: string[]): boolean {
+async function isMutant(dna: string[]) {
     isMinimumAllowedLimitOutside(dna);
     const _dnaMatrix = arrayToMatrix(dnaValidated(dna, dna.length));
     const isScan = scanHorizintalUpright(_dnaMatrix) || scanOblique(_dnaMatrix);
-    createAdn({
+    const response=await createAdn({
         adn: dna,
         isMutant: isScan,
     });
-    return isScan;
+    return response;
 }
 
 export default isMutant;

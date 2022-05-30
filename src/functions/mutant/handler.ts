@@ -5,7 +5,7 @@ import { APIGatewayProxyResult } from 'aws-lambda';
 import { middyfy } from '@libs/lambda';
 import schema from './schema';
 import isMutant from '../../application/isMutant';
-import { debugWarning } from '@libs/logs';
+import { debugWarning, debugInfo } from '@libs/logs';
 import { getAllAdn } from 'src/application/persistence';
 
 export const getAll = middyfy(async (): Promise<APIGatewayProxyResult> => {
@@ -18,15 +18,15 @@ export const getAll = middyfy(async (): Promise<APIGatewayProxyResult> => {
 const mutant: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (event) => {
   try {
     const { dna } = event.body;
-    let _message = 'Es mutante';
-    if (!isMutant((dna as string[]))) {
-      _message = 'Es humano';
+    const response = await isMutant((dna as string[]));
+    debugInfo(JSON.stringify(response));
+    if (response.isMutant) {
       return ForbiddenResponse({
-        message: _message
+        message: response
       });
     }
     return OKResponse({
-      message: _message
+      message: response
     });
   } catch (error) {
     debugWarning((error as string));
