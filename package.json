@@ -52,7 +52,7 @@
       "tslint --fix",
       "git add"
     ]
-  },
+  }, 
   "author": "Gonzalo J Perez",
   "license": "MIT"
 }

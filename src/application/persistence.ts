@@ -16,23 +16,22 @@ export const createAdn = (adnData: AdnModel): void => {
         .catch(error => debugError(`Insert-Error ADN: ${error}`));
 };
 
+export const responseAllAdn = (allAdn: AdnModel[], countMutantDna = 0, countHumanDna = 0, ratio = 0) => allAdn.reduce((_accumulator, item) => {
+    countMutantDna += item.isMutant ? 1 : 0;
+    countHumanDna += item.isMutant ? 0 : 1;
+    ratio = countMutantDna / countHumanDna;
+    return {
+        'count_mutant_dna': countMutantDna,
+        'count_human_dna': countHumanDna,
+        'ratio': ratio > 0 && ratio !== Infinity ? ratio : 0
+    };
+}, {
+    'count_mutant_dna': 0,
+    'count_human_dna': 0,
+    'ratio': 0
+});
+
 export const getAllAdn = async () => {
     const allAdn = await adnService.getAll();
-    let countMutantDna = 0;
-    let countHumanDna = 0;
-    let ratio = 0;
-    return allAdn.reduce((_accumulator, item) => {
-        countMutantDna += item.isMutant ? 1 : 0;
-        countHumanDna += item.isMutant ? 0 : 1;
-        ratio = countMutantDna / countHumanDna;
-        return {
-            'count_mutant_dna': countMutantDna,
-            'count_human_dna': countHumanDna,
-            'ratio': ratio > 0 && ratio !== Infinity ? ratio : 0
-        };
-    }, {
-        'count_mutant_dna': 0,
-        'count_human_dna': 0,
-        'ratio': 0
-    });
+    return responseAllAdn(allAdn);
 };
