@@ -1,4 +1,4 @@
-import dynamodb, { DocumentClient } from 'aws-sdk/clients/dynamodb';
+import { DocumentClient } from 'aws-sdk/clients/dynamodb';
 
 import AdnModel from '../model/adn';
 

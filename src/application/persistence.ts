@@ -1,13 +1,11 @@
-import AdnModel from '../model/adn';
-import adnService from '../services';
+import AdnModel from '../infrastructure/model/adn';
+import adnService from '../infrastructure/services';
 import { debugInfo, debugError } from '../libs/logs';
 import { sha224 } from 'js-sha256';
 
 export const createAdn = (adnData: AdnModel): void => {
     const { adn, isMutant } = adnData;
-    console.log('1', adn);
     const _adnSha = sha224(adn.toString());
-    console.log('2', _adnSha);
     adnService.create({
         adnId: _adnSha,
         adn: adn,
