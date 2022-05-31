@@ -45,10 +45,10 @@ https://aws.amazon.com/es/cli/
 ## Como correr la aplicación 
 - npm run start o yarn start
 
+![start](__doc__/start.png)
+
 ## Como desplegar la aplicación
 - npm run deploy o yarn deploy
-
-![start](__doc__/start.png)
 
 ## Como usar el  API 
 
