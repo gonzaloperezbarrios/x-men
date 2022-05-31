@@ -1,97 +1,128 @@
-# Serverless - AWS Node.js Typescript
+# Serverless Framework + Typescript + AWS
 
-https://blog.logrocket.com/building-serverless-app-typescript/#connect-to-dynomodb
+> Se muestra cómo se resuelve el reto X-MEN detención de ADN usando Serverless Framework + Typescript + AWS
 
-This project has been generated using the `aws-nodejs-typescript` template from the [Serverless framework](https://www.serverless.com/).
+## Configurar ambiente
+### 01- Instalar
+- Node >= 14.X 
+https://nodejs.org/es/download/ 
 
-For detailed instructions, please refer to the [documentation](https://www.serverless.com/framework/docs/providers/aws/).
+- Serverless Framework
+npm install -g serverless 
 
-## Installation/deployment instructions
+- aws cli (opcional por si quiere desplegar la infraestructura)
+https://aws.amazon.com/es/cli/ 
 
-Depending on your preferred package manager, follow the instructions below to deploy your project.
+### 02 - Validación de instalación 
+- serverless –version
+- node –version
+- npm –version 
+- aws –version 
 
-> **Requirements**: NodeJS `lts/fermium (v.14.15.0)`. If you're using [nvm](https://github.com/nvm-sh/nvm), run `nvm use` to ensure you're using the same Node version in local and in your lambda's runtime.
+![Validación](__doc__/validacionIntalacion.png)
 
-### Using NPM
+### 03 - Clone el proyecto 
+- git clone https://github.com/gonzaloperezbarrios/x-men.git
 
-- Run `npm i` to install the project dependencies
-- Run `npx sls deploy` to deploy this stack to AWS
+### 04 - Paquetes
 
-### Using Yarn
+> Ubíquese en la raíz del proyecto e instale los paquetes
 
-- Run `yarn` to install the project dependencies
-- Run `yarn sls deploy` to deploy this stack to AWS
+- npm install o yarn
+### 05 - Instale la base de datos local DynamoDB
+- serverless dynamodb install
+### 06 - Conectese AWS CLOUD (opcional por si quiere desplegar la infraestructura)
+- aws configure
+- serverless config credentials --provider aws --key <KEY> --secret <SECRET>
 
-## Test your service
+**Nota**: Asegúrese de tener los permisos suficientes 
+![ejemplo](__doc__/permisosAWS.png)
 
-This template contains a single lambda function triggered by an HTTP request made on the provisioned API Gateway REST API `/hello` route with `POST` method. The request body must be provided as `application/json`. The body structure is tested by API Gateway against `src/functions/hello/schema.ts` JSON-Schema definition: it must contain the `name` property.
+## Como correr la aplicación 
+- npm run start o yarn start
 
-- requesting any other path than `/hello` with any other method than `POST` will result in API Gateway returning a `403` HTTP error code
-- sending a `POST` request to `/hello` with a payload **not** containing a string property named `name` will result in API Gateway returning a `400` HTTP error code
-- sending a `POST` request to `/hello` with a payload containing a string property named `name` will result in API Gateway returning a `200` HTTP status code with a message saluting the provided name and the detailed event processed by the lambda
+## Como desplegar la aplicación
+- npm run deploy o yarn deploy
 
-> :warning: As is, this template, once deployed, opens a **public** endpoint within your AWS account resources. Anybody with the URL can actively execute the API Gateway endpoint and the corresponding lambda. You should protect this endpoint with the authentication method of your choice.
+![start](__doc__/start.png)
 
-### Locally
+## Como usar el  API 
 
-In order to test the hello function locally, run the following command:
+- Crear un registro:
 
-- `npx sls invoke local -f hello --path src/functions/hello/mock.json` if you're using NPM
-- `yarn sls invoke local -f hello --path src/functions/hello/mock.json` if you're using Yarn
-
-Check the [sls invoke local command documentation](https://www.serverless.com/framework/docs/providers/aws/cli-reference/invoke-local/) for more information.
-
-### Remotely
-
-Copy and replace your `url` - found in Serverless `deploy` command output - and `name` parameter in the following `curl` command in your terminal or in Postman to test your newly deployed application.
-
+	- **Método:** POST
+	- **URL - LOCAL :**  http://localhost:3000/dev/mutant  
+	- **URL - PRODUCTIVA:**  https://sijbd0ykee.execute-api.us-east-1.amazonaws.com/dev/mutant  
+	- **BODY:**
 ```
-curl --location --request POST 'https://myApiEndpoint/dev/hello' \
---header 'Content-Type: application/json' \
---data-raw '{
-    "name": "Frederic"
-}'
+    {    
+	    "dna": [ "ATGCGA","CAGAGC","TTCTAT","AGAAGG","CTCCTA","TCACTG"]
+    }
 ```
 
-## Template features
+![ejemplo](__doc__/post.png)
 
-### Project structure
+- Obtener estadistica: 
+	- **Método:** GET
+	- **URL - LOCAL :**  http://localhost:3000/dev/stats
+	- **URL - PRODUCTIVA:**  https://sijbd0ykee.execute-api.us-east-1.amazonaws.com/dev/stats
 
-The project code base is mainly located within the `src` folder. This folder is divided in:
+![ejemplo](__doc__/get.png)
 
-- `functions` - containing code base and configuration for your lambda functions
-- `libs` - containing shared code base between your lambdas
+## Estructura del Proyecto 
 
 ```
 .
 ├── src
-│   ├── functions               # Lambda configuration and source code folder
-│   │   ├── hello
-│   │   │   ├── handler.ts      # `Hello` lambda source code
-│   │   │   ├── index.ts        # `Hello` lambda Serverless configuration
-│   │   │   ├── mock.json       # `Hello` lambda input parameter, if any, for local invocation
-│   │   │   └── schema.ts       # `Hello` lambda input event JSON-Schema
-│   │   │
-│   │   └── index.ts            # Import/export of all lambda configurations
-│   │
-│   └── libs                    # Lambda shared code
-│       └── apiGateway.ts       # API Gateway specific helpers
-│       └── handlerResolver.ts  # Sharable library for resolving lambda handlers
-│       └── lambda.ts           # Lambda middleware
+│ │ ├── application # Donde se encuentra la lógica de segundo grado, es decir de validaciones apoya la lógica de negocio, por ejemplo; validaciones, accesos a datos crudos, reportes
+│ │ ├── domain # Donde se encuentra las reglas de negocio
+│ │ ├── infraestructure # Donde se encuentra los recursos que no hace parta del negocio, por ejemplo; conexiones a base de datos, llamado a APIS de tercero.
+│ ├── functions # Lambda - carpeta de configuración y código fuente
+│ │ ├── mutant
+│ │ │ ├── handler.ts # `mutant` lambda - código fuente
+│ │ │ ├── index.ts # `mutant` lambda Serverless - configuración
+│ │ │ ├── mock.json # `mutant` lambda - parámetro de entrada, si lo hay, para la invocación local
+│ │ │ └── schema.ts # `mutant` lambda - evento de entrada JSON-Schema
+│ │ │
+│ │ └── index.ts # Import/export de todas las configuraciones lambda
+│ │
+│ └── libs # Lambda shared code
+│ └── apiGateway.ts # API Gateway specific helpers
+│ └── handlerResolver.ts # Sharable library for resolving lambda handlers
+│ └── lambda.ts # Lambda middleware
 │
 ├── package.json
-├── serverless.ts               # Serverless service file
-├── tsconfig.json               # Typescript compiler configuration
-├── tsconfig.paths.json         # Typescript paths
-└── webpack.config.js           # Webpack configuration
+├── serverless.ts # Serverless service file
+├── tsconfig.json # Typescript compiler configuration
+├── tsconfig.paths.json # Typescript paths
+└── webpack.config.js # Webpack configuration
 ```
 
-### 3rd party libraries
+## RETO - IDENTIFICAR ADN MUTANTE
+> “Magneto quiere reclutar la mayor cantidad de mutantes para poder luchar contra los X-Men. 
+Te ha contratado a ti para que desarrolles un proyecto que detecte si un humano es mutante basándose en su secuencia de ADN.
 
-- [json-schema-to-ts](https://github.com/ThomasAribart/json-schema-to-ts) - uses JSON-Schema definitions used by API Gateway for HTTP request validation to statically generate TypeScript types in your lambda's handler code base
-- [middy](https://github.com/middyjs/middy) - middleware engine for Node.Js lambda. This template uses [http-json-body-parser](https://github.com/middyjs/middy/tree/master/packages/http-json-body-parser) to convert API Gateway `event.body` property, originally passed as a stringified JSON, to its corresponding parsed object
-- [@serverless/typescript](https://github.com/serverless/typescript) - provides up-to-date TypeScript definitions for your `serverless.ts` service file
+> En donde recibirás como parámetro un array de Strings que representan cada fila de una tabla de (NxN) con la secuencia del ADN. Las letras de los Strings solo pueden ser: (A,T,C,G), las cuales representa cada base nitrogenada del ADN.
 
-### Advanced usage
+> Sabrás si un humano es mutante, si encuentras más de una secuencia de cuatro letras iguales, de forma oblicua, horizontal o vertical.”
 
-Any tsconfig.json can be used, but if you do, set the environment variable `TS_NODE_CONFIG` for building the application, eg `TS_NODE_CONFIG=./tsconfig.app.json npx serverless webpack`
+![ejemplo](__doc__/matrixADN.png)
+
+## Solución 
+> Para el desarrollo de este reto se consideró las siguientes tecnologías: 
+
+### Código Fuente: 
+- **Serverless Framework con Typescript:** Este Framework nos facilita probar y desplegar el código fuente en aws (cualquier otro proveedor de nube), como también crear la infraestructura como código. 
+
+- **Jest:** Este Framework nos facilita la implementación de pruebas unitarias y conocer nivel de cobertura. 
+- **Eslint:** Este plugin nos ayuda dando recomendaciones de escritura de código. 
+
+### Infraestructura AWS
+
+- **Apigateway:** Servicio donde expone el API-REST y enlaza con las funciones lambdas
+- **Lambda:** Servicio donde esta desplegado el código fuente 
+- **Cloudwatch:** Servicio donde queda registro de los logs de las notificaciones de las lambdas
+- **Dynamodb:** Base de datos no relacional 
+- **S3 bucket:** Servicio donde queda depositado los despliegues.
+
+![aws](__doc__/aws.png)
