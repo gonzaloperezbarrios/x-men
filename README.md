@@ -8,7 +8,10 @@
 https://nodejs.org/es/download/ 
 
 - Serverless Framework
+
+```
 npm install -g serverless 
+```
 
 - aws cli (opcional por si quiere desplegar la infraestructura)
 https://aws.amazon.com/es/cli/ 
