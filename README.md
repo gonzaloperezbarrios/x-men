@@ -36,6 +36,7 @@ https://aws.amazon.com/es/cli/
 - serverless config credentials --provider aws --key <KEY> --secret <SECRET>
 
 **Nota**: Asegúrese de tener los permisos suficientes 
+
 ![ejemplo](__doc__/permisosAWS.png)
 
 ## Como correr la aplicación 
