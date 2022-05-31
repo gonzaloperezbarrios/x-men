@@ -1,5 +1,9 @@
 # Serverless Framework + Typescript + AWS
 
+
+
+[![video-youtube](__doc__/youtube.png)](https://youtu.be/O_hsX3JnHE0)
+
 > Se muestra cómo se resuelve el reto X-MEN detención de ADN usando Serverless Framework + Typescript + AWS
 
 ## Configurar ambiente
@@ -130,3 +134,23 @@ Te ha contratado a ti para que desarrolles un proyecto que detecte si un humano 
 - **S3 bucket:** Servicio donde queda depositado los despliegues.
 
 ![aws](__doc__/aws.png)
+
+## Comandos utiles 
+> Crear un proyecto vacío
+
+```
+serverless create --template aws-nodejs-typescript --name dna-mutante-x
+```
+
+> Correr modo offline
+https://github.com/dherault/serverless-offline
+
+```
+serverless offline start
+```
+> Desplegar
+
+```
+serverless deploy
+```
+
