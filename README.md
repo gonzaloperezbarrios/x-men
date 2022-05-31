@@ -78,9 +78,9 @@ https://aws.amazon.com/es/cli/
 ```
 .
 ├── src
-│ │ ├── application # Donde se encuentra la lógica de segundo grado, es decir de validaciones apoya la lógica de negocio, por ejemplo; validaciones, accesos a datos crudos, reportes
-│ │ ├── domain # Donde se encuentra las reglas de negocio
-│ │ ├── infraestructure # Donde se encuentra los recursos que no hace parta del negocio, por ejemplo; conexiones a base de datos, llamado a APIS de tercero.
+│ ├── application # Donde se encuentra la lógica de segundo grado, es decir de validaciones apoya la lógica de negocio, por ejemplo; validaciones, accesos a datos crudos, reportes
+│ ├── domain # Donde se encuentra las reglas de negocio
+│ ├── infraestructure # Donde se encuentra los recursos que no hace parta del negocio, por ejemplo; conexiones a base de datos, llamado a APIS de tercero.
 │ ├── functions # Lambda - carpeta de configuración y código fuente
 │ │ ├── mutant
 │ │ │ ├── handler.ts # `mutant` lambda - código fuente
